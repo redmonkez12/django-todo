@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Todos</h1>
+<a href="{% url 'create_todo' %}" class="btn btn-primary">Create todo</a>
+<ul class="list-group">
+    {% for todo in todos %}
+    <li class="list-group-item d-flex align-items-center">
+        <div>{{todo.description}}</div>
+        <a class="btn btn-primary ms-3" href="{% url 'todo' pk=todo.id %}">Detail</a>
+        <form action="{% url 'delete_todo' pk=todo.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-primary ms-3" type="submit">Delete</button>
+        </form>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
